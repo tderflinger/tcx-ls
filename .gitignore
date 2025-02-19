@@ -7,3 +7,4 @@ test-data/
 .DS_Store
 tcxjson-ls
 test.json
+*.csv

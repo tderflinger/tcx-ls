@@ -141,5 +141,6 @@ export class TcxConsolePrinter {
     console.error("-c : List creator data");
     console.error("-a : List author data");
     console.error("--geojson filename : Export tracks to GeoJSON file");
+    console.error("--csv filename : Export laps to CSV file");
   }
 }

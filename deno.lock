@@ -3,8 +3,12 @@
   "specifiers": {
     "jsr:@std/assert@*": "1.0.11",
     "jsr:@std/assert@1": "1.0.11",
+    "jsr:@std/bytes@^1.0.5": "1.0.5",
     "jsr:@std/cli@^1.0.12": "1.0.12",
+    "jsr:@std/csv@*": "1.0.5",
+    "jsr:@std/csv@^1.0.5": "1.0.5",
     "jsr:@std/internal@^1.0.5": "1.0.5",
+    "jsr:@std/streams@^1.0.8": "1.0.9",
     "npm:@xmldom/xmldom@~0.9.7": "0.9.7"
   },
   "jsr": {
@@ -14,11 +18,26 @@
         "jsr:@std/internal"
       ]
     },
+    "@std/bytes@1.0.5": {
+      "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
+    },
     "@std/cli@1.0.12": {
       "integrity": "e5cfb7814d189da174ecd7a34fbbd63f3513e24a1b307feb2fcd5da47a070d90"
     },
+    "@std/csv@1.0.5": {
+      "integrity": "02006ffd77e84b2bf01968d4e792f0b5cba057c73dc6a89accb96d803493675f",
+      "dependencies": [
+        "jsr:@std/streams"
+      ]
+    },
     "@std/internal@1.0.5": {
       "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    },
+    "@std/streams@1.0.9": {
+      "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035",
+      "dependencies": [
+        "jsr:@std/bytes"
+      ]
     }
   },
   "npm": {
@@ -30,6 +49,7 @@
     "dependencies": [
       "jsr:@std/assert@1",
       "jsr:@std/cli@^1.0.12",
+      "jsr:@std/csv@^1.0.5",
       "npm:@xmldom/xmldom@~0.9.7"
     ]
   }

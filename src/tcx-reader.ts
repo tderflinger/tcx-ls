@@ -18,7 +18,7 @@ export interface TcxData {
   coordinates: [number, number][];
 }
 
-interface LapData {
+export interface LapData {
   lapStartTime: string;
   lapTime: number;
   lapDistance: number;

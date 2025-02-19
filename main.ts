@@ -3,6 +3,7 @@ import { tcxData, TcxReader } from "./src/tcx-reader.ts";
 import { TcxConsolePrinter } from "./src/tcx-console-printer.ts";
 import { parseXmlFileToJson } from "./src/parse-tcx-xml.ts";
 import { writeGeoJsonFile } from "./src/geojson-writer.ts";
+import { writeLapsCsv } from "./src/laps-csv-writer.ts";
 
 async function readTcxFile(filePath: string) {
   try {
@@ -31,7 +32,7 @@ if (import.meta.main) {
 
   const args = parseArgs(Deno.args, {
     boolean: ["l", "c", "a"],
-    string: ["geojson"],
+    string: ["geojson", "csv"],
     alias: { _: ["file"] },
   });
 
@@ -45,6 +46,10 @@ if (import.meta.main) {
   if (args.geojson) {
     const geojsonFilePath = args.geojson;
     await writeGeoJsonFile(geojsonFilePath, tcxData);
+  }
+
+  if (args.csv) {
+    writeLapsCsv(tcxData.laps, args.csv);
   }
 
   tcxConsolePrinter.displayData(args.l);

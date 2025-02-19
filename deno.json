@@ -5,6 +5,7 @@
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
     "@std/cli": "jsr:@std/cli@^1.0.12",
+    "@std/csv": "jsr:@std/csv@^1.0.5",
     "@xmldom/xmldom": "npm:@xmldom/xmldom@^0.9.7"
   }
 }
