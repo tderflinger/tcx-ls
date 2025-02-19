@@ -1,0 +1,30 @@
+name: Deploy
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Build step
+        run: "deno compile --allow-read src/main.ts"
+    
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls Artifact
+          path: ./tcx-ls
+

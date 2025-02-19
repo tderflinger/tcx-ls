@@ -64,18 +64,10 @@ export const tcxData: TcxData = {
   averageHR: 0,
   heartrateCounter: 0,
   accumulatedHR: 0,
-  laps: [] as Array<{
-    lapStartTime: string;
-    lapTime: number;
-    lapDistance: number;
-    lapMaxSpeed: number;
-    lapCalories: number;
-    lapAvgHeartRate: number;
-    lapMaxHeartRate: number;
-  }>,
+  laps: [],
   altitudeTrackerMax: 0,
   altitudeTrackerMin: 99999999999,
-  coordinates: [] as Array<[number, number]>,
+  coordinates: [],
   authorData: {
     available: false,
     name: "",
