@@ -4,3 +4,4 @@ map.html
 out.txt
 test-data/
 *.tcx
+.DS_Store
