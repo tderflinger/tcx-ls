@@ -24,6 +24,24 @@ Start the application via:
 ./tcx-ls /path/to/your/file.tcx
 ```
 
+In order to view the lap details, use the '-l' flag:
+
+```bash
+./tcx-ls -l /path/to/your/file.tcx
+```
+
+You can also export the tracks as a GeoJSON file:
+
+```bash
+./tcx-ls --geojson output.json /path/to/your/file.tcx
+```
+
+In order to export the laps as a CSV file:
+
+```bash
+./tcx-ls --csv laps.csv /path/to/your/file.tcx
+```
+
 ## Source Installation
 
 Install the dependencies using the following command:
