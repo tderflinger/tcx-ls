@@ -133,12 +133,13 @@ export class TcxConsolePrinter {
 
   printHelp() {
     console.error("tcx-ls - List TCX information.");
-    console.error("No tcx file provided.");
+    console.error("No TCX file provided.");
     console.error("Usage: tcx-ls [Options] TCXFILE.tcx");
     console.error("");
     console.error("Options:");
     console.error("-l : List laps");
     console.error("-c : List creator data");
     console.error("-a : List author data");
+    console.error("--geojson filename : Export tracks to GeoJSON file");
   }
 }

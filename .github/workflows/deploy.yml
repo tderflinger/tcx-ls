@@ -19,6 +19,9 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Run tests
+        run: "deno test"
+
       - name: Build step
         run: "deno compile --allow-read --allow-write --include src main.ts"
     

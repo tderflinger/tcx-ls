@@ -226,10 +226,12 @@ export class TcxReader {
         tcxData.maxHR,
         trackPoint?.["HeartRateBpm"]?.["Value"]["#text"]
       );
-      tcxData.coordinates.push([
-        parseFloat(trackPoint?.["Position"]?.["LongitudeDegrees"]["#text"]),
-        parseFloat(trackPoint?.["Position"]?.["LatitudeDegrees"]["#text"]),
-      ]);
+
+      const longitude = trackPoint?.["Position"]?.["LongitudeDegrees"]["#text"];
+      const latitude = trackPoint?.["Position"]?.["LatitudeDegrees"]["#text"];
+      longitude &&
+        latitude &&
+        tcxData.coordinates.push([parseFloat(longitude), parseFloat(latitude)]);
     }
   }
 }

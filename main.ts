@@ -2,32 +2,7 @@ import { parseArgs } from "@std/cli/parse-args";
 import { tcxData, TcxReader } from "./src/tcx-reader.ts";
 import { TcxConsolePrinter } from "./src/tcx-console-printer.ts";
 import { parseXmlFileToJson } from "./src/parse-tcx-xml.ts";
-
-async function writeGeoJsonFile(filePath: string) {
-  const geoJson = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "LineString",
-          coordinates: [] as [number, number][],
-        },
-      },
-    ],
-  };
-  geoJson.features[0].geometry.coordinates = tcxData.coordinates;
-
-  try {
-    await Deno.writeTextFile(
-      filePath,
-      JSON.stringify(geoJson, null, 2)
-    );
-  } catch (error) {
-    console.error("Error writing the GeoJSON file:", error);
-  }
-}
+import { writeGeoJsonFile } from "./src/geojson-writer.ts";
 
 async function readTcxFile(filePath: string) {
   try {
@@ -69,7 +44,7 @@ if (import.meta.main) {
 
   if (args.geojson) {
     const geojsonFilePath = args.geojson;
-    await writeGeoJsonFile(geojsonFilePath);
+    await writeGeoJsonFile(geojsonFilePath, tcxData);
   }
 
   tcxConsolePrinter.displayData(args.l);
