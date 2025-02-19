@@ -1,6 +1,9 @@
+![Logo tcx-ls](./doc/Tcx-ls-logo.png)
+
 # tcx-ls
 
 This is a command line tool to view information from a TCX-file. It can display information like accumulated time, accumulated distance, maximum speed, average pace, maximum run cadence, and more.
+
 With the optional '-l' flag you can also display the individual laps of the activity.
 
 The TCX file format is used by Garmin devices and other devices to store data such as GPS coordinates, heart rate, and other sensor data. You can export it for example from the Garmin Connect application.
@@ -26,7 +29,7 @@ Start the application via:
 
 ## Source Installation
 
-You can install the tool from source using the following command:
+Install the dependencies using the following command:
 
 ```bash
 deno install 
@@ -34,7 +37,7 @@ deno install
 
 ## Usage
 
-By specifying the TCX file as an argument, you view the information. For example:
+Specify the TCX file as an argument to view the sports activity information.
 
 ```bash
 deno run --allow-read src/main.ts /path/to/your/file.tcx

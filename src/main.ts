@@ -2,32 +2,25 @@ import { parseArgs } from "@std/cli/parse-args";
 import {
   tcxData,
   commandOptions,
-  readGeneralPart,
-  readLaps,
-  readAuthorData,
-} from "./readTcx.ts";
+  TcxReader,
+} from "./tcx-reader.ts";
 import {
   displayData,
   printAuthor,
   printCreator,
   printHelp,
-} from "./printData.ts";
-import { parseXmlFileToJson } from "./parseTcxXml.ts";
+} from "./print-data.ts";
+import { parseXmlFileToJson } from "./parse-tcx-xml.ts";
 
 // Function to read and parse JSON file
-async function readJsonFile(filePath: string) {
+async function readTcxFile(filePath: string) {
   try {
-    // Read the JSON file as text
-    //const jsonText = await Deno.readTextFile(filePath);
-
-    // Parse the JSON text
-    //const jsonData = JSON.parse(jsonText);
-
     const jsonData = await parseXmlFileToJson(filePath);
 
-    const laps = readGeneralPart(jsonData);
-    readLaps(laps);
-    readAuthorData(jsonData["TrainingCenterDatabase"]);
+    const tcxReader = new TcxReader(jsonData);
+
+    tcxReader.readLaps(tcxReader.readGeneralPart());
+    tcxReader.readAuthorData(jsonData["TrainingCenterDatabase"]);
 
     await Deno.writeTextFile(
       "./coordinates.txt",
@@ -44,7 +37,7 @@ if (import.meta.main) {
     Deno.exit(1);
   }
 
-  const args = parseArgs(Deno.args, { boolean: ["l"], _: ["file"] });
+  const args = parseArgs(Deno.args, { boolean: ["l", "c", "a"], _: ["file"] });
 
   if (args.l) {
     commandOptions.listLaps = true;
@@ -55,8 +48,14 @@ if (import.meta.main) {
     Deno.exit(1);
   }
 
-  await readJsonFile(args._[0]);
+  await readTcxFile(args._[0]);
   displayData();
-  printAuthor();
-  printCreator();
+
+  if (args.a) {
+    printAuthor(tcxData);
+  }
+
+  if (args.c) {
+    printCreator(tcxData);
+  }
 }
