@@ -6,3 +6,4 @@ test-data/
 *.tcx
 .DS_Store
 tcxjson-ls
+test.json

@@ -101,17 +101,17 @@ export class TcxConsolePrinter {
     console.log("");
     console.log("Author Data");
     console.log("");
-    console.log("Name: " + this.#tcxData.authorData.name);
+    console.log(`Name: ${this.#tcxData.authorData.name}`);
     console.log(
-      "Version Major: " + this.#tcxData.authorData.build.versionMajor
+      `Version Major: ${this.#tcxData.authorData.build.versionMajor}`
     );
     console.log(
-      "Version Minor: " + this.#tcxData.authorData.build.versionMinor
+      `Version Minor: ${this.#tcxData.authorData.build.versionMinor}`
     );
-    console.log("Build Major: " + this.#tcxData.authorData.build.buildMajor);
-    console.log("Build Minor: " + this.#tcxData.authorData.build.buildMinor);
-    console.log("Language: " + this.#tcxData.authorData.lang);
-    console.log("Part Number: " + this.#tcxData.authorData.partNumber);
+    console.log(`Build Major: ${this.#tcxData.authorData.build.buildMajor}`);
+    console.log(`Build Minor: ${this.#tcxData.authorData.build.buildMinor}`);
+    console.log(`Language: ${this.#tcxData.authorData.lang}`);
+    console.log(`Part Number: ${this.#tcxData.authorData.partNumber}`);
   }
 
   printCreator() {
@@ -122,13 +122,13 @@ export class TcxConsolePrinter {
     console.log("");
     console.log("Creator Data");
     console.log("");
-    console.log("Name: " + this.#tcxData.creatorData.name);
-    console.log("Unit ID: " + this.#tcxData.creatorData.unitId);
-    console.log("Product ID: " + this.#tcxData.creatorData.productID);
-    console.log("Version Major: " + this.#tcxData.creatorData.versionMajor);
-    console.log("Version Minor: " + this.#tcxData.creatorData.versionMinor);
-    console.log("Build Major: " + this.#tcxData.creatorData.buildMajor);
-    console.log("Build Minor: " + this.#tcxData.creatorData.buildMinor);
+    console.log(`Name: ${this.#tcxData.creatorData.name}`);
+    console.log(`Unit ID: ${this.#tcxData.creatorData.unitId}`);
+    console.log(`Product ID: ${this.#tcxData.creatorData.productID}`);
+    console.log(`Version Major: ${this.#tcxData.creatorData.versionMajor}`);
+    console.log(`Version Minor: ${this.#tcxData.creatorData.versionMinor}`);
+    console.log(`Build Major: ${this.#tcxData.creatorData.buildMajor}`);
+    console.log(`Build Minor: ${this.#tcxData.creatorData.buildMinor}`);
   }
 
   printHelp() {

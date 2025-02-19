@@ -1,5 +1,6 @@
 import { assertEquals } from "jsr:@std/assert";
 import { TcxConsolePrinter } from "../src/tcx-console-printer.ts";
+import { TcxData } from "../src/tcx-reader.ts";
 
 Deno.test("Test that authorData is correctly written to the console.", () => {
   // Step 1: Mock console.log
@@ -26,7 +27,7 @@ Deno.test("Test that authorData is correctly written to the console.", () => {
     },
   };
 
-  const tcxConsolePrinter = new TcxConsolePrinter(tcxData);
+  const tcxConsolePrinter = new TcxConsolePrinter(tcxData as TcxData);
   tcxConsolePrinter.printAuthor();
 
   assertEquals(consoleOutput, [
@@ -69,7 +70,7 @@ Deno.test("Test that creatorData is correctly written to the console.", () => {
     },
   };
 
-  const tcxConsolePrinter = new TcxConsolePrinter(tcxData);
+  const tcxConsolePrinter = new TcxConsolePrinter(tcxData as TcxData);
   tcxConsolePrinter.printCreator();
 
   assertEquals(consoleOutput, [
