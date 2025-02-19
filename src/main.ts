@@ -1,24 +1,18 @@
 import { parseArgs } from "@std/cli/parse-args";
 import {
   tcxData,
-  commandOptions,
   TcxReader,
 } from "./tcx-reader.ts";
 import {
-  displayData,
-  printAuthor,
-  printCreator,
-  printHelp,
-} from "./print-data.ts";
+  TcxConsolePrinter,
+} from "./tcx-console-printer.ts";
 import { parseXmlFileToJson } from "./parse-tcx-xml.ts";
 
-// Function to read and parse JSON file
 async function readTcxFile(filePath: string) {
   try {
     const jsonData = await parseXmlFileToJson(filePath);
 
     const tcxReader = new TcxReader(jsonData);
-
     tcxReader.readLaps(tcxReader.readGeneralPart());
     tcxReader.readAuthorData(jsonData["TrainingCenterDatabase"]);
 
@@ -32,30 +26,28 @@ async function readTcxFile(filePath: string) {
 }
 
 if (import.meta.main) {
+  const tcxConsolePrinter = new TcxConsolePrinter(tcxData);
   if (Deno.args.length === 0) {
-    printHelp();
+    tcxConsolePrinter.printHelp();
     Deno.exit(1);
   }
 
   const args = parseArgs(Deno.args, { boolean: ["l", "c", "a"], _: ["file"] });
 
-  if (args.l) {
-    commandOptions.listLaps = true;
-  }
-
   if (args._.length === 0) {
-    printHelp();
+    tcxConsolePrinter.printHelp();
     Deno.exit(1);
   }
 
-  await readTcxFile(args._[0]);
-  displayData();
+  await readTcxFile(String(args._[0]));
+
+  tcxConsolePrinter.displayData(args.l);
 
   if (args.a) {
-    printAuthor(tcxData);
+    tcxConsolePrinter.printAuthor();
   }
 
   if (args.c) {
-    printCreator(tcxData);
+    tcxConsolePrinter.printCreator();
   }
 }

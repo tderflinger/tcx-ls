@@ -1,6 +1,60 @@
-export const tcxData = {
-  activityId: String,
-  sport: String,
+export interface TcxData {
+  sport: string;
+  activityId: string;
+  accumulatedTime: number;
+  accumulatedDistance: number;
+  accumulatedCalories: number;
+  altitudeTrackerMin: number;
+  altitudeTrackerMax: number;
+  maxRunCadence: number;
+  maxSpeed: number;
+  averageHR?: number;
+  accumulatedHR: number;
+  heartrateCounter: number;
+  maxHR: number;
+  laps: LapData[];
+  authorData: AuthorData;
+  creatorData: CreatorData;
+  coordinates: [number, number][];
+}
+
+interface LapData {
+  lapStartTime: string;
+  lapTime: number;
+  lapDistance: number;
+  lapMaxSpeed: number;
+  lapCalories: number;
+  lapAvgHeartRate?: number;
+  lapMaxHeartRate?: number;
+}
+
+interface AuthorData {
+  available: boolean;
+  name: string;
+  build: {
+    versionMajor: number;
+    versionMinor: number;
+    buildMajor: number;
+    buildMinor: number;
+  };
+  lang: string;
+  partNumber: string;
+}
+
+interface CreatorData {
+  available: boolean;
+  name: string;
+  unitId: string;
+  productID: string;
+  versionMajor: number;
+  versionMinor: number;
+  buildMajor: number;
+  buildMinor: number;
+}
+
+export const tcxData: TcxData = {
+  activityId: "",
+  sport: "",
   accumulatedTime: 0,
   accumulatedDistance: 0,
   accumulatedCalories: 0,
@@ -47,13 +101,13 @@ export const tcxData = {
 };
 
 export class TcxReader {
-  #jsonData: any;
+  #jsonData: Record<string, any>;
 
-  constructor(jsonData: any) {
+  constructor(jsonData: Record<string, any>) {
     this.#jsonData = jsonData;
   }
 
-  readGeneralPart(): any {
+  readGeneralPart(): Array<any>[any] {
     const trainingCenter = this.#jsonData["TrainingCenterDatabase"];
     const activities = trainingCenter["Activities"];
     const activity = activities["Activity"];
@@ -65,24 +119,7 @@ export class TcxReader {
     return activity["Lap"];
   }
 
-  readCreatorData(trainingCenter: any) {
-    const creator = trainingCenter["Creator"];
-    if (!creator) {
-      return;
-    }
-    tcxData.creatorData.available = true;
-    tcxData.creatorData.name = creator["Name"]["#text"];
-    tcxData.creatorData.unitId = creator["UnitId"]["#text"];
-    tcxData.creatorData.productID = creator["ProductID"]["#text"];
-    tcxData.creatorData.versionMajor =
-      creator["Version"]["VersionMajor"]["#text"];
-    tcxData.creatorData.versionMinor =
-      creator["Version"]["VersionMinor"]["#text"];
-    tcxData.creatorData.buildMajor = creator["Version"]["BuildMajor"]["#text"];
-    tcxData.creatorData.buildMinor = creator["Version"]["BuildMinor"]["#text"];
-  }
-
-  readLaps(laps: any) {
+  readLaps(laps: Array<any>[any]) {
     if (!Array.isArray(laps)) {
       laps = [laps];
     }
@@ -124,7 +161,7 @@ export class TcxReader {
     }
   }
 
-  readAuthorData(trainingCenter: any) {
+  readAuthorData(trainingCenter: { [key: string]: any }) {
     const author = trainingCenter["Author"];
     if (!author) {
       return;
@@ -141,6 +178,24 @@ export class TcxReader {
       author["Build"]["Version"]["BuildMinor"]["#text"];
     tcxData.authorData.lang = author["LangID"]["#text"];
     tcxData.authorData.partNumber = author["PartNumber"]["#text"];
+  }
+
+  readCreatorData(trainingCenter: { [key: string]: any }) {
+    const creator = trainingCenter["Creator"];
+    if (!creator) {
+      return;
+    }
+
+    tcxData.creatorData.available = true;
+    tcxData.creatorData.name = creator["Name"]["#text"];
+    tcxData.creatorData.unitId = creator["UnitId"]["#text"];
+    tcxData.creatorData.productID = creator["ProductID"]["#text"];
+    tcxData.creatorData.versionMajor =
+      creator["Version"]["VersionMajor"]["#text"];
+    tcxData.creatorData.versionMinor =
+      creator["Version"]["VersionMinor"]["#text"];
+    tcxData.creatorData.buildMajor = creator["Version"]["BuildMajor"]["#text"];
+    tcxData.creatorData.buildMinor = creator["Version"]["BuildMinor"]["#text"];
   }
 
   #readTrackPoints(trackPoints: any) {
@@ -186,7 +241,3 @@ export class TcxReader {
     }
   }
 }
-
-export const commandOptions = {
-  listLaps: false,
-};
