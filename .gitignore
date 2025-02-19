@@ -5,3 +5,4 @@ out.txt
 test-data/
 *.tcx
 .DS_Store
+tcxjson-ls

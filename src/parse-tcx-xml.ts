@@ -1,7 +1,7 @@
 import { DOMParser } from "@xmldom/xmldom";
 
 // Function to parse XML file and convert to JSON
-export async function parseXmlFileToJson(filePath: string): any {
+export async function parseXmlFileToJson(filePath: string): Promise<Record<string, unknown> | undefined> {
   try {
     // Read the XML file as text
     const xmlText = await Deno.readTextFile(filePath);

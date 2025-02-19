@@ -2,19 +2,24 @@ import { parseArgs } from "@std/cli/parse-args";
 import {
   tcxData,
   TcxReader,
-} from "./tcx-reader.ts";
+} from "./src/tcx-reader.ts";
 import {
   TcxConsolePrinter,
-} from "./tcx-console-printer.ts";
-import { parseXmlFileToJson } from "./parse-tcx-xml.ts";
+} from "./src/tcx-console-printer.ts";
+import { parseXmlFileToJson } from "./src/parse-tcx-xml.ts";
 
 async function readTcxFile(filePath: string) {
   try {
     const jsonData = await parseXmlFileToJson(filePath);
 
+    if (!jsonData) {
+      console.error("Error reading or parsing the file");
+      Deno.exit(1);
+    }
+
     const tcxReader = new TcxReader(jsonData);
     tcxReader.readLaps(tcxReader.readGeneralPart());
-    tcxReader.readAuthorData(jsonData["TrainingCenterDatabase"]);
+    tcxReader.readAuthorData((jsonData as { [key: string]: any })["TrainingCenterDatabase"]);
 
     await Deno.writeTextFile(
       "./coordinates.txt",
@@ -32,7 +37,7 @@ if (import.meta.main) {
     Deno.exit(1);
   }
 
-  const args = parseArgs(Deno.args, { boolean: ["l", "c", "a"], _: ["file"] });
+  const args = parseArgs(Deno.args, { boolean: ["l", "c", "a"], alias: { _: ["file"] } });
 
   if (args._.length === 0) {
     tcxConsolePrinter.printHelp();
