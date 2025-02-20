@@ -42,6 +42,17 @@ In order to export the laps as a CSV file:
 ./tcx-ls --csv laps.csv /path/to/your/file.tcx
 ```
 
+## Command Options
+
+| Option          | Description                           |
+|-----------------|---------------------------------------|
+| `-l`            | View the lap details                  |
+| `-c`            | View the creator data                 |
+| `-a`            | View the author data                  |
+| `--geojson`     | Export the tracks as a GeoJSON file   |
+| `--csv`         | Export the laps as a CSV file         |
+
+
 ## Source Installation
 
 Install the dependencies using the following command:
@@ -55,8 +66,10 @@ deno install
 Specify the TCX file as an argument to view the sports activity information.
 
 ```bash
-deno run --allow-read src/main.ts /path/to/your/file.tcx
+deno run --allow-read main.ts /path/to/your/file.tcx
 ```
+
+If you want to export GeoJSON or CSV data you need to add --allow-write.
 
 ## License
 
