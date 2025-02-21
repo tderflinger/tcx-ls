@@ -1,4 +1,5 @@
 ![Futuristic runner](./doc/futuristic-jogger.png)
+
 ![Logo tcx-ls](./doc/tcx-ls-logo.png)
 
 This is a command line tool to view information from a TCX-file. It displays information like accumulated time, accumulated distance, maximum speed, average pace, maximum run cadence, and more.
