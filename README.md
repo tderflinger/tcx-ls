@@ -1,3 +1,4 @@
+![Futuristic runner](./doc/futuristic-jogger.webp)
 ![Logo tcx-ls](./doc/tcx-ls-logo.png)
 
 This is a command line tool to view information from a TCX-file. It displays information like accumulated time, accumulated distance, maximum speed, average pace, maximum run cadence, and more.
@@ -55,7 +56,9 @@ In order to export the laps as a CSV file:
 
 ## Source Installation
 
-Install the dependencies using the following command:
+As a pre-requisite for running `tcx-ls` from source, you need to have [Deno](https://www.deno.com) installed.
+
+Then, install the dependencies using the following command:
 
 ```bash
 deno install 
