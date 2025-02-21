@@ -216,19 +216,19 @@ export class TcxReader {
       tcxData.heartrateCounter++;
       tcxData.maxRunCadence = Math.max(
         tcxData.maxRunCadence,
-        trackPoint?.["Extensions"]?.["ns3:TPX"]?.["ns3:RunCadence"]["#text"]
+        trackPoint?.["Extensions"]?.["ns3:TPX"]?.["ns3:RunCadence"]?.["#text"]
       );
       tcxData.maxSpeed = Math.max(
         tcxData.maxSpeed,
-        trackPoint?.["Extensions"]?.["ns3:TPX"]?.["ns3:Speed"]["#text"]
+        trackPoint?.["Extensions"]?.["ns3:TPX"]?.["ns3:Speed"]?.["#text"]
       );
       tcxData.maxHR = Math.max(
         tcxData.maxHR,
-        trackPoint?.["HeartRateBpm"]?.["Value"]["#text"]
+        trackPoint?.["HeartRateBpm"]?.["Value"]?.["#text"]
       );
 
-      const longitude = trackPoint?.["Position"]?.["LongitudeDegrees"]["#text"];
-      const latitude = trackPoint?.["Position"]?.["LatitudeDegrees"]["#text"];
+      const longitude = trackPoint?.["Position"]?.["LongitudeDegrees"]?.["#text"];
+      const latitude = trackPoint?.["Position"]?.["LatitudeDegrees"]?.["#text"];
       longitude &&
         latitude &&
         tcxData.coordinates.push([parseFloat(longitude), parseFloat(latitude)]);
