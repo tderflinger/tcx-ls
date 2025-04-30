@@ -10,6 +10,11 @@ The TCX file format is used by Garmin devices and other devices to store data su
 
 The TCX file format schema is described on this page: https://www8.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd
 
+## Video Introduction
+
+[![Watch the video](./doc/cover-image-tcx-ls.jpg)](https://youtu.be/ZqKpRPHIjdw?si=b5DJSQ_cTdr7SUSP)
+
+Click on image to play video.
 
 ## Binary Release
 
