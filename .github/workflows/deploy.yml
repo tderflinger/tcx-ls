@@ -101,4 +101,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./tcx-ls-windows-x86_64.exe
           asset_name: tcx-ls-windows-x86_64.exe
-          asset_content_type: application/octet-stream          
+          asset_content_type: application/octet-stream        
+          
+      - name: Upload Release Asset (macOS arm64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./tcx-ls-macos-arm64
+          asset_name: tcx-ls-macos-arm64
+          asset_content_type: application/octet-stream
+          
