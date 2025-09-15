@@ -23,11 +23,39 @@ jobs:
         run: "deno test"
 
       - name: Build step
-        run: "deno compile --allow-read --allow-write --include src main.ts"
-    
-      - name: Upload artifact
+        run: |
+          deno compile --target x86_64-unknown-linux-gnu  --allow-read --allow-write --output tcx-ls-linux-x86_64       main.ts
+          deno compile --target aarch64-unknown-linux-gnu --allow-read --allow-write --output tcx-ls-linux-arm64        main.ts
+          deno compile --target aarch64-apple-darwin      --allow-read --allow-write --output tcx-ls-macos-arm64        main.ts
+          deno compile --target x86_64-apple-darwin       --allow-read --allow-write --output tcx-ls-macos-x86_64       main.ts
+          deno compile --target x86_64-pc-windows-msvc    --allow-read --allow-write --output tcx-ls-windows-x86_64.exe main.ts
+
+      - name: Upload Linux x86_64
         uses: actions/upload-artifact@v4
         with:
-          name: tcx-ls Artifact
-          path: ./tcx-ls
+          name: tcx-ls-linux-x86_64
+          path: ./tcx-ls-linux-x86_64
 
+      - name: Upload Linux arm64
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls-linux-arm64
+          path: ./tcx-ls-linux-arm64
+
+      - name: Upload macOS arm64
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls-macos-arm64
+          path: ./tcx-ls-macos-arm64
+
+      - name: Upload macOS x86_64
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls-macos-x86_64
+          path: ./tcx-ls-macos-x86_64
+
+      - name: Upload Windows x86_64
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls-windows-x86_64.exe
+          path: ./tcx-ls-windows-x86_64.exe
