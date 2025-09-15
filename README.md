@@ -18,9 +18,15 @@ Click on image to play video.
 
 ## Binary Release
 
-You can download the binary version of the CLI tool from the releases page. The binary is compiled for x86 Linux.
+You can download the binary version of the CLI tool from the releases page. The binaries are compiled for x86 and ARM Linux, MacOS (ARM) and Windows.
 
-First, make it executable, like so:
+First, rename the distribution for your platform, for example:
+
+```bash
+mv ./tcx-ls-linux-x86-64 ./tcx-ls
+```
+
+Make it executable (on Linux), like so:
 
 ```bash
 chmod +x ./tcx-ls
