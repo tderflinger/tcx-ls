@@ -41,12 +41,12 @@ jobs:
 
       - name: Add Flathub Repo
         run: |
-          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Build the Flatpak package
         run: |
           cd deployment/flatpak
-          flatpak-builder --force-clean --install-deps-from=flathub builddir com.tderflinger.tcx-ls.yml
+          flatpak-builder --user --force-clean --install-deps-from=flathub builddir com.tderflinger.tcx-ls.yml
 
       - name: Upload Linux x86_64
         uses: actions/upload-artifact@v4
