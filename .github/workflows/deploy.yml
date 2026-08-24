@@ -17,6 +17,12 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
+      - name: Install Flatpak and flatpak-builder
+        run: |
+          sudo apt update
+          sudo apt install flatpak -y
+          sudo apt install flatpak-builder -y
+
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
@@ -32,6 +38,11 @@ jobs:
           deno compile --target aarch64-apple-darwin      --allow-read --allow-write --output tcx-ls-macos-arm64        main.ts
           deno compile --target x86_64-apple-darwin       --allow-read --allow-write --output tcx-ls-macos-x86_64       main.ts
           deno compile --target x86_64-pc-windows-msvc    --allow-read --allow-write --output tcx-ls-windows-x86_64.exe main.ts
+
+      - name: Build the Flatpak package
+        run: |
+          cd deployment/flatpak
+          flatpak-builder --force-clean --install-deps-from=flathub builddir com.tderflinger.tcx-ls.yml
 
       - name: Upload Linux x86_64
         uses: actions/upload-artifact@v4
