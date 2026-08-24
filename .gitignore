@@ -8,5 +8,7 @@ test-data/
 tcxjson-ls
 test.json
 *.csv
-tcx-ls
+tcx-ls*
 *.xsd
+out.*
+activity.*

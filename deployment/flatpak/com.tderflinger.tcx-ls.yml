@@ -1,0 +1,19 @@
+id: com.tderflinger.tcx-ls
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+command: tcx-ls
+
+finish-args:
+  - --filesystem=home
+  
+modules:
+  - name: tcx-ls
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 tcx-ls-linux-x86_64 /app/bin/tcx-ls
+    sources:
+      - type: file
+        url: https://github.com/tderflinger/tcx-ls/releases/download/v0.9.2/tcx-ls-linux-x86_64
+        sha256: 190280831bed1ba89cbfd3b91a6d68a9c9360896f0386bafa0547b1709bed2ae
+

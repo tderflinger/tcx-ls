@@ -85,6 +85,14 @@ Specify the TCX file as an argument to view the sports activity information.
 deno run --allow-read main.ts /path/to/your/file.tcx
 ```
 
+## Compiling
+
+In order to compile a binary for ARM ISAs use the following command:
+
+```bash
+deno compile --allow-read --allow-write --target aarch64-unknown-linux-gnu -o tcx-ls-arm main.ts
+```
+
 If you want to export GeoJSON or CSV data you need to add --allow-write.
 
 ## License
