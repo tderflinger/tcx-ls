@@ -39,6 +39,10 @@ jobs:
           deno compile --target x86_64-apple-darwin       --allow-read --allow-write --output tcx-ls-macos-x86_64       main.ts
           deno compile --target x86_64-pc-windows-msvc    --allow-read --allow-write --output tcx-ls-windows-x86_64.exe main.ts
 
+      - name: Add Flathub Repo
+        run: |
+          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
       - name: Build the Flatpak package
         run: |
           cd deployment/flatpak
