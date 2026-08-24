@@ -97,7 +97,6 @@ jobs:
           path: deployment/flatpak/tcx-ls.flatpak
 
       - name: Create or update Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
