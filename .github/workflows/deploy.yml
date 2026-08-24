@@ -46,7 +46,21 @@ jobs:
       - name: Build the Flatpak package
         run: |
           cd deployment/flatpak
-          flatpak-builder --user --force-clean --install-deps-from=flathub builddir com.tderflinger.tcx-ls.yml
+          #flatpak-builder --user --force-clean --install-deps-from=flathub builddir com.tderflinger.tcx-ls.yml
+          flatpak-builder \
+            --user \
+            --force-clean \
+            --install-deps-from=flathub \
+            --repo=repo \
+            builddir \
+            com.tderflinger.tcx-ls.yml
+
+          flatpak build-bundle \
+            repo \
+            tcx-ls.flatpak \
+            com.tderflinger.tcx-ls \
+            25.08 \
+            --runtime-repo=https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Upload Linux x86_64
         uses: actions/upload-artifact@v4
@@ -78,53 +92,27 @@ jobs:
           name: tcx-ls-windows-x86_64.exe
           path: ./tcx-ls-windows-x86_64.exe
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Flatpak bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcx-ls-flatpak
+          path: deployment/flatpak/tcx-ls.flatpak
+
+      - name: Create or update Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          release_name: Release latest
-          body: "Automated release for latest"
+          name: Release latest
+          body: Automated release for latest
+          make_latest: true
+          overwrite_files: true
+          files: |
+            tcx-ls-linux-x86_64
+            tcx-ls-linux-arm64
+            tcx-ls-windows-x86_64.exe
+            tcx-ls-macos-arm64
+            deployment/flatpak/tcx-ls.flatpak
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Release Assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tcx-ls-linux-x86_64
-          asset_name: tcx-ls-linux-x86_64
-          asset_content_type: application/octet-stream
-
-      - name: Upload Release Asset (Linux arm64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tcx-ls-linux-arm64
-          asset_name: tcx-ls-linux-arm64
-          asset_content_type: application/octet-stream
-
-      - name: Upload Release Asset (Windows x86_64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tcx-ls-windows-x86_64.exe
-          asset_name: tcx-ls-windows-x86_64.exe
-          asset_content_type: application/octet-stream        
-          
-      - name: Upload Release Asset (macOS arm64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./tcx-ls-macos-arm64
-          asset_name: tcx-ls-macos-arm64
-          asset_content_type: application/octet-stream
-          
