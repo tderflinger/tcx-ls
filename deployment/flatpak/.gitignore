@@ -1,4 +1,5 @@
 repo/
 builddir/
 .flatpak-builder/
+tcx-ls.flatpak
 

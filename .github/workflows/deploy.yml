@@ -58,9 +58,7 @@ jobs:
           flatpak build-bundle \
             repo \
             tcx-ls.flatpak \
-            com.tderflinger.tcx-ls \
-            25.08 \
-            --runtime-repo=https://dl.flathub.org/repo/flathub.flatpakrepo
+            com.tderflinger.tcx-ls
 
       - name: Upload Linux x86_64
         uses: actions/upload-artifact@v4
